@@ -10,8 +10,16 @@ select max(salary) as secondhighestsalary from employee a where salary<(select m
 
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
-  RETURN (select distinct(a.salary) as getNthhighestsalary from employee a where n-1=(select count(distinct(b.salary)) from employee b where a.salary<b.salary));
+  RETURN (select distinct(a.salary) as getNthhighestsalary from employee a where n-1=(select count(distinct(b.salary)) 
+  from employee b where a.salary<b.salary));
 END
 
 178. Rank Scores
 
+select score,dense_rank() over(order by score desc) 'rank' from scores;
+
+180. Consecutive Numbers
+
+select distinct num as consecutivenums from 
+(select num, lead(num) over(order by id) as beforenumber,lag(num) over(order by id) as afternumber from logs) D 
+where num=beforenumber and beforenumber=afternumber;
