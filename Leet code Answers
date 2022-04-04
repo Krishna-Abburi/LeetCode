@@ -1,8 +1,13 @@
 175. Combine Two Tables
+
 select firstname,lastname,city,state from person a left join address b on a.personid=b.personid
+
 176. Second Highest Salary
+
 select max(salary) as secondhighestsalary from employee a where salary<(select max(salary) from employee b);
+
 177. Nth Highest Salary
+
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
   RETURN (select distinct(a.salary) as getNthhighestsalary from employee a where n-1=(select count(distinct(b.salary)) from employee b where a.salary<b.salary));
