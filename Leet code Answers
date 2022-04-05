@@ -55,9 +55,6 @@ delete b from person a, person b where a.email=b.email and a.id<b.id;
 select id from (select id,temperature,recorddate,lag(temperature,1) over(order by recorddate) as nextdaytemperature,
 lag(recorddate,1) over() as nextdate from weather) d where nextdaytemperature<temperature and datediff(nextdate,recorddate)=-1;
 
-262. Trips and Users
-
-
 511. Game Play Analysis I
 
 select player_id,min(event_date) as first_login from activity group by player_id;
@@ -70,5 +67,12 @@ select player_id, device_id  from Activity where (player_id, event_date) in ( se
 
 select player_id,event_date,sum(games_played) over(partition by player_id order by event_date) as games_played_so_far from activity;
 
+570. Managers with at Least 5 Direct Reports
+
+select  b as name from (select distinct a.name as b,count(*) from employee a,employee b where a.id=b.managerid group by a.name having count(*)>=5) e;
+
+574. Winning Candidate
+
+select name from (select name,count(*) from candidate a join vote b on a.id=b.candidateid group by a.id order by count(*) desc limit 1) z;
 
 
