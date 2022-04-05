@@ -39,6 +39,10 @@ select c.name as customers from customers c where id not in (select customerid f
 184. Department Highest Salary
 
 select department,employee,salary from (select b.name as department,a.name as employee,salary,
-dense_rank() over(partition by departmentid order by salary desc) 'rnk' from employee a join department b on a.departmentid=b.id) d where rnk=1
+dense_rank() over(partition by departmentid order by salary desc) 'rnk' from employee a join department b on a.departmentid=b.id) d where rnk=1;
+
+185. Department Top Three Salaries
+
+
 
 
