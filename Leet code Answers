@@ -75,4 +75,35 @@ select  b as name from (select distinct a.name as b,count(*) from employee a,emp
 
 select name from (select name,count(*) from candidate a join vote b on a.id=b.candidateid group by a.id order by count(*) desc limit 1) z;
 
+577. Employee Bonus
+
+select name,bonus from employee a left join bonus b on a.empid=b.empid where bonus<1000 or bonus is null;
+
+580. Count Student Number in Departments
+
+select dept_name,count(student_id) as student_number from department a 
+left outer join student  b on a.dept_id=b.dept_id group by dept_name order by count(student_id) desc;
+
+584. Find Customer Referee
+
+select name from customer where referee_id!=2 or referee_id is null;
+
+585. Investments in 2016
+
+
+586. Customer Placing the Largest Number of Orders
+
+select customer_number from orders group by customer_number order by count(order_number) desc limit 1;
+
+595. Big Countries
+
+select name,population,area from world where area>=3000000 or population>=25000000;
+
+596. Classes More Than 5 Students
+
+select class from courses group by class having count(student)>=5;
+
+
+
+
 
