@@ -52,8 +52,23 @@ delete b from person a, person b where a.email=b.email and a.id<b.id;
 
 197. Rising Temperature
 
+select id from (select id,temperature,recorddate,lag(temperature,1) over(order by recorddate) as nextdaytemperature,
+lag(recorddate,1) over() as nextdate from weather) d where nextdaytemperature<temperature and datediff(nextdate,recorddate)=-1;
+
+262. Trips and Users
 
 
+511. Game Play Analysis I
+
+select player_id,min(event_date) as first_login from activity group by player_id;
+
+512. Game Play Analysis II
+
+select player_id, device_id  from Activity where (player_id, event_date) in ( select player_id, min(event_date) from Activity group by player_id);
+    
+ 534. Game Play Analysis III
+
+select player_id,event_date,sum(games_played) over(partition by player_id order by event_date) as games_played_so_far from activity;
 
 
 
