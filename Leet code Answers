@@ -23,3 +23,22 @@ select score,dense_rank() over(order by score desc) 'rank' from scores;
 select distinct num as consecutivenums from 
 (select num, lead(num) over(order by id) as beforenumber,lag(num) over(order by id) as afternumber from logs) D 
 where num=beforenumber and beforenumber=afternumber;
+
+181. Employees Earning More Than Their Managers
+
+select b.name as employee from employee a join employee b where a.id=b.managerid and a.salary<b.salary;
+
+182. Duplicate Emails
+
+select email from person group by email having count(email)>1;
+
+183. Customers Who Never Order
+
+select c.name as customers from customers c where id not in (select customerid from orders );
+
+184. Department Highest Salary
+
+select department,employee,salary from (select b.name as department,a.name as employee,salary,
+dense_rank() over(partition by departmentid order by salary desc) 'rnk' from employee a join department b on a.departmentid=b.id) d where rnk=1
+
+
