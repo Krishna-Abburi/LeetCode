@@ -43,6 +43,17 @@ dense_rank() over(partition by departmentid order by salary desc) 'rnk' from emp
 
 185. Department Top Three Salaries
 
+select department,employee,salary from (select b.name as department,a.name as employee,salary,dense_rank() 
+over(partition by departmentid order by salary desc) 'rnk' from employee a join department b on a.departmentid=b.id) d where rnk in (1,2,3);
+
+196. Delete Duplicate Emails
+
+delete b from person a, person b where a.email=b.email and a.id<b.id;
+
+197. Rising Temperature
+
+
+
 
 
 
