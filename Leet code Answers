@@ -115,3 +115,7 @@ select a as id,count(b) as num from (select accepter_id as a ,requester_id as b 
 union
 select requester_id as a ,accepter_id as b from RequestAccepted) m  group by a order by num  desc limit 1; 
 
+1369. Get the Second Most Recent Activity
+
+select username,activity,startdate,enddate from (select username,activity,startdate,enddate,row_number() 
+over(partition by username order by startdate desc) as a,count(*) over(partition by username) as d from UserActivity) a where a=2 or d=1;
