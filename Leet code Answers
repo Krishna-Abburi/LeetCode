@@ -119,3 +119,20 @@ select requester_id as a ,accepter_id as b from RequestAccepted) m  group by a o
 
 select username,activity,startdate,enddate from (select username,activity,startdate,enddate,row_number() 
 over(partition by username order by startdate desc) as a,count(*) over(partition by username) as d from UserActivity) a where a=2 or d=1;
+
+1270. All People Report to the Given Manager
+
+select employee_id from employees where manager_id in (select min(employee_id) from employees where manager_id=employee_id) and employee_id!=(select min(employee_id) from employees where manager_id=employee_id)
+union all
+select employee_id from employees where manager_id in (select employee_id from employees where manager_id in (select min(employee_id) from employees where manager_id=employee_id) and employee_id!=(select min(employee_id) from employees where manager_id=employee_id))
+union all
+select employee_id from employees where manager_id in (select employee_id from employees where manager_id in (select employee_id from employees where manager_id in (select min(employee_id) from employees where manager_id=employee_id) 
+and employee_id!=(select min(employee_id) from employees where manager_id=employee_id)));
+
+1294. Weather Type in Each Country
+
+select country_name,'Cold' as Weather_type from weather a join countries b on a.country_id=b.country_id where extract(month from day)=11 group by a.country_id having avg(weather_state)<=15
+union all
+select country_name,'Hot' as Weather_type from weather a join countries b on a.country_id=b.country_id where extract(month from day)=11 group by a.country_id having avg(weather_state)>=25
+union all
+select country_name,'Warm' as Weather_type from weather a join countries b on a.country_id=b.country_id where extract(month from day)=11 group by a.country_id having avg(weather_state)>15 and avg(weather_state)<25;
