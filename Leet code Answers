@@ -103,7 +103,15 @@ select name,population,area from world where area>=3000000 or population>=250000
 
 select class from courses group by class having count(student)>=5;
 
+603. Consecutive Available Seats
 
+select seat_id from (select seat_id,lag(free,1) over(order by seat_id asc) as new,free from cinema) a where new=free and free=1
+union
+select seat_id from (select seat_id,lead(free,1) over(order by seat_id asc) as new,free from cinema) a where new=free and free=1 order by seat_id asc ;
 
+602. Friend Requests II: Who Has the Most Friends
 
+select a as id,count(b) as num from (select accepter_id as a ,requester_id as b from RequestAccepted
+union
+select requester_id as a ,accepter_id as b from RequestAccepted) m  group by a order by num  desc limit 1; 
 
