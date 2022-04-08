@@ -162,3 +162,14 @@ m where rnk<=3 order by customer_name asc,customer_id asc,order_date desc;
 1501. Countries You Can Safely Invest In
  
 select  country from (select distinct c.name as country,avg(duration) over(partition by c.name) as test from person a join calls b on a.id=b.caller_id or a.id=b.callee_id join country c on left(phone_number,3)=c.country_code) z  where test>(select avg(duration) from person m join calls n on m.id=n.caller_id or m.id=n.callee_id);
+
+1468. Calculate Salaries
+
+select company_id,employee_id,employee_name,
+case 
+when max(salary) over (partition by company_id )<1000 then round(salary,0)
+when max(salary) over (partition by company_id ) between 1000 and 10000 then round(salary-(salary*0.24),0)
+when max(salary) over (partition by company_id )>10000 then round(salary-(salary*0.49),0)
+end as salary 
+from salaries order by company_id asc , employee_id asc;
+
