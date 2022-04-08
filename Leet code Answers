@@ -136,3 +136,23 @@ union all
 select country_name,'Hot' as Weather_type from weather a join countries b on a.country_id=b.country_id where extract(month from day)=11 group by a.country_id having avg(weather_state)>=25
 union all
 select country_name,'Warm' as Weather_type from weather a join countries b on a.country_id=b.country_id where extract(month from day)=11 group by a.country_id having avg(weather_state)>15 and avg(weather_state)<25;
+
+1407. Top Travellers
+
+select name,ifnull(sum(distance),0) as travelled_distance from users a left join rides b on a.id=b.user_id group by name order by sum(distance) desc,name asc;
+
+1890. The Latest Login in 2020
+
+
+select user_id,max(time_stamp) as last_stamp from logins where extract(year from time_stamp)=2020 group by user_id; 
+
+1571. Warehouse Manager
+
+select distinct name as warehouse_name,sum(units*(width*length*height)) as volume from warehouse a join products b on a.product_id=b.product_id group by name;
+
+1517. Find Users With Valid E-Mails
+
+select * from users where mail like '%leetcode.com' and mail not like '.%' and mail not like '%#%';
+
+
+
