@@ -154,5 +154,11 @@ select distinct name as warehouse_name,sum(units*(width*length*height)) as volum
 
 select * from users where mail like '%leetcode.com' and mail not like '.%' and mail not like '%#%';
 
+1532. The Most Recent Three Orders
 
+select name as customer_name,customer_id,order_id,order_date from (select name,a.customer_id,order_id,order_date,dense_rank() over(partition by a.customer_id order by order_date desc) as 'rnk' from customers a join orders b on a.customer_id=b.customer_id)
+m where rnk<=3 order by customer_name asc,customer_id asc,order_date desc;
 
+1501. Countries You Can Safely Invest In
+ 
+select  country from (select distinct c.name as country,avg(duration) over(partition by c.name) as test from person a join calls b on a.id=b.caller_id or a.id=b.callee_id join country c on left(phone_number,3)=c.country_code) z  where test>(select avg(duration) from person m join calls n on m.id=n.caller_id or m.id=n.callee_id);
