@@ -206,5 +206,44 @@ BEGIN
 select distinct user_id from purchases where (time_stamp between startDate and endDate) and amount>=minAmount order by user_id;
 END
 
+2205. The Number of Users That Are Eligible for Discount
 
 
+CREATE FUNCTION getUserIDs(startDate DATE, endDate DATE, minAmount INT) RETURNS INT
+BEGIN
+  RETURN (
+select count(distinct user_id) as user_count from purchases where (time_stamp between startDate and endDate) and amount>=minamount  
+  );
+END
+
+1978. Employees Whose Manager Left the Company
+
+select distinct employee_id from employees a  where salary<30000 and manager_id not in 
+(select employee_id from employees b ) order by employee_id;
+
+1939. Users That Actively Request Confirmation Messages
+
+select distinct a.user_id from confirmations a join confirmations b on a.user_id=b.user_id 
+and a.time_stamp<b.time_stamp where timestampdiff(second,a.time_stamp,b.time_stamp)<=86400;
+
+1873. Calculate Special Bonus
+
+select employee_id,
+case
+when employee_id%2!=0 and name not like 'M%' then salary 
+else 0
+end as bonus
+from employees 
+
+1809. Ad-Free Sessions
+
+select distinct session_id from playback d where session_id not in
+(select session_id from playback a join ads b on a.customer_id=b.customer_id where timestamp between start_time and end_time);
+
+1795. Rearrange Products Table
+
+select product_id as product_id,store as store, a as price  from (select product_id,'store1' as store,store1 as a from products
+union 
+select product_id,'store2' as store,store2  as a from products
+union 
+select product_id,'store3' as store,store3 as a from products) m where a is not null order by product_id;
