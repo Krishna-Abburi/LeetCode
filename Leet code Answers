@@ -193,6 +193,10 @@ from teams a left join matches b on a.team_id=b.host_team or a.team_id=b.guest_t
 group by team_id order by num_points desc,team_id asc;
 
 
+2228. Users With Two Purchases Within Seven Days
+ 
+select distinct user_id from (select user_id,purchase_date,
+lag(purchase_date) over(partition by user_id order by purchase_date) as temp from purchases) x  where datediff(purchase_date,temp)<=7;
 
 
 
