@@ -303,3 +303,14 @@ select a as customer_id,b as product_id,d as product_name from
 dense_rank() over(partition by b.customer_id order by count(b.product_id) desc) as rnk 
 from  orders b join products c on b.product_id=c.product_id group by b.customer_id, c.product_id) d where rnk=1;
 
+2175. The Change in Global Rankings
+
+select m.team_id as team_id,m.name as name,cast(m.rnk as SIGNED)-cast(b.rnk1 as SIGNED) as rank_diff from
+
+(select team_id,name,row_number() over(order by points desc) as rnk from teampoints) m
+
+join 
+
+(select a.team_id,name,row_number() over(order by sum(points+points_change) desc) 
+as rnk1 from teampoints a join pointschange b on a.team_id=b.team_id group by a.team_id) b on m.team_id=b.team_id;
+
