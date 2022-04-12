@@ -294,3 +294,12 @@ average_age from employees a join employees b on a.employee_id=b.reports_to grou
 
 
 select user_id,count(follower_id) as followers_count from followers group by user_id order by user_id;
+
+1596. The Most Frequently Ordered Products for Each Customer
+
+
+select a as customer_id,b as product_id,d as product_name from 
+(select b.customer_id as a,c.product_id as b ,c.product_name as d,
+dense_rank() over(partition by b.customer_id order by count(b.product_id) desc) as rnk 
+from  orders b join products c on b.product_id=c.product_id group by b.customer_id, c.product_id) d where rnk=1;
+
