@@ -314,3 +314,8 @@ join
 (select a.team_id,name,row_number() over(order by sum(points+points_change) desc) 
 as rnk1 from teampoints a join pointschange b on a.team_id=b.team_id group by a.team_id) b on m.team_id=b.team_id;
 
+
+
+select ifnull(round(count(distinct requester_id,accepter_id)/(count(distinct sender_id,send_to_id )),2),0.00)
+as accept_rate from friendrequest, requestaccepted
+
