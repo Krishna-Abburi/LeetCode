@@ -319,3 +319,9 @@ as rnk1 from teampoints a join pointschange b on a.team_id=b.team_id group by a.
 select ifnull(round(count(distinct requester_id,accepter_id)/(count(distinct sender_id,send_to_id )),2),0.00)
 as accept_rate from friendrequest, requestaccepted
 
+597. Friend Requests I: Overall Acceptance Rate
+
+
+select ifnull(round(count(distinct requester_id,accepter_id)/count(distinct sender_id,send_to_id),2),0.00)
+as accept_rate from FriendRequest,RequestAccepted;
+
