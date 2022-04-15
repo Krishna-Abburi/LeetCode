@@ -333,4 +333,8 @@ ifnull(case when a.product_id=b.product_id then sum(rest) end,0) as rest,
 ifnull(case when a.product_id=b.product_id then sum(paid) end,0) as paid,
 ifnull(case when a.product_id=b.product_id then sum(canceled) end,0) as canceled,
 ifnull(case when a.product_id=b.product_id then sum(refunded) end,0) as refunded
-from product b left join invoice a on a.product_id=b.product_id group by name order by name ;;
+from product b left join invoice a on a.product_id=b.product_id group by name order by name ;
+
+1667. Fix Names in a Table
+
+select user_id,concat(UPPER(SUBSTRING(name,1,1)),LOWER(substring(name,2))) as name from users order by user_id;
