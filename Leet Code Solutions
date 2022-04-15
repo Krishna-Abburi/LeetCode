@@ -338,3 +338,12 @@ from product b left join invoice a on a.product_id=b.product_id group by name or
 1667. Fix Names in a Table
 
 select user_id,concat(UPPER(SUBSTRING(name,1,1)),LOWER(substring(name,2))) as name from users order by user_id;
+
+1633. Percentage of Users Attended a Contest
+
+select contest_id,round((count(*)/ (select count(*) from users))*100,2) as percentage from users a join register b on a.user_id=b.user_id
+group by contest_id order by count(*)/ (select count(*) from users)*100 desc,contest_id asc;
+
+2238. Number of Times a Driver Was a Passenger
+
+select a.driver_id,count(distinct b.ride_id) as cnt from rides a left join rides b on a.driver_id=b.passenger_id group by a.driver_id;
