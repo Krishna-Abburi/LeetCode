@@ -347,3 +347,9 @@ group by contest_id order by count(*)/ (select count(*) from users)*100 desc,con
 2238. Number of Times a Driver Was a Passenger
 
 select a.driver_id,count(distinct b.ride_id) as cnt from rides a left join rides b on a.driver_id=b.passenger_id group by a.driver_id;
+
+2066. Account Balance
+
+select account_id,day,
+sum(case when type='Deposit' then amount else -amount end) over(partition by account_id order by day) as balance
+from transactions;
