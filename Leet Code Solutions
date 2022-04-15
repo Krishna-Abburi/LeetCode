@@ -292,11 +292,9 @@ order by product_id;
 select distinct a.employee_id,a.name,count(*) as reports_count,round(avg(b.age),0) as
 average_age from employees a join employees b on a.employee_id=b.reports_to group by a.employee_id order by a.employee_id ;
 
-
 select user_id,count(follower_id) as followers_count from followers group by user_id order by user_id;
 
 1596. The Most Frequently Ordered Products for Each Customer
-
 
 select a as customer_id,b as product_id,d as product_name from 
 (select b.customer_id as a,c.product_id as b ,c.product_name as d,
@@ -315,12 +313,10 @@ join
 as rnk1 from teampoints a join pointschange b on a.team_id=b.team_id group by a.team_id) b on m.team_id=b.team_id;
 
 
-
 select ifnull(round(count(distinct requester_id,accepter_id)/(count(distinct sender_id,send_to_id )),2),0.00)
 as accept_rate from friendrequest, requestaccepted
 
 597. Friend Requests I: Overall Acceptance Rate
-
 
 select ifnull(round(count(distinct requester_id,accepter_id)/count(distinct sender_id,send_to_id),2),0.00)
 as accept_rate from FriendRequest,RequestAccepted;
@@ -328,4 +324,13 @@ as accept_rate from FriendRequest,RequestAccepted;
 1661. Average Time of Process per Machine
 
 select a.machine_id,round(avg(b.timestamp-a.timestamp),3) as processing_time from activity a join activity
-b on a.machine_id=b.machine_id where a.activity_type='start' and b.activity_type='end' group by machine_id;
+b on a.machine_id=b.machine_id where a.activity_type='start' and b.activity_type='end' group by machine_id
+
+1677. Product's Worth Over Invoices
+
+select name,
+ifnull(case when a.product_id=b.product_id then sum(rest) end,0) as rest,
+ifnull(case when a.product_id=b.product_id then sum(paid) end,0) as paid,
+ifnull(case when a.product_id=b.product_id then sum(canceled) end,0) as canceled,
+ifnull(case when a.product_id=b.product_id then sum(refunded) end,0) as refunded
+from product b left join invoice a on a.product_id=b.product_id group by name order by name ;;
