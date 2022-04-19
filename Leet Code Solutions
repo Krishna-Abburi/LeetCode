@@ -353,3 +353,7 @@ select a.driver_id,count(distinct b.ride_id) as cnt from rides a left join rides
 select account_id,day,
 sum(case when type='Deposit' then amount else -amount end) over(partition by account_id order by day) as balance
 from transactions;
+
+1098. Unpopular Books
+
+select a.book_id,a.name from books a left join orders b on a.book_id=b.book_id and dispatch_date between '2018-06-23' and '2019-06-23' where datediff('2019-06-23',available_from)>30  group by a.book_id,a.name having sum(quantity)<10 or sum(quantity) is null;
