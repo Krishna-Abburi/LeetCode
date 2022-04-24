@@ -357,3 +357,18 @@ from transactions;
 1098. Unpopular Books
 
 select a.book_id,a.name from books a left join orders b on a.book_id=b.book_id and dispatch_date between '2018-06-23' and '2019-06-23' where datediff('2019-06-23',available_from)>30  group by a.book_id,a.name having sum(quantity)<10 or sum(quantity) is null;
+
+	1934. select a.user_id,
+round(avg(case when action='confirmed' then 1 else 0 end),2) as confirmation_rate
+from signups a left join confirmations b  on b.user_id=a.user_id group by a.user_id;
+
+1511. select m as customer_id,name from (select a.customer_id as m,name,sum(quantity*price) from customers a left join orders b on a.customer_id=b.customer_id left join product c on c.product_id=b.product_id where extract(month from order_date) in (6,7) group by a.customer_id,extract(month from order_date) having sum(quantity*price)>=100) n group by m having count(m)=2;
+
+610. select x,y,z,
+case when x+y>z and x+z>y and y+z>x then 'Yes' else 'No' end as triangle
+from triangle;
+
+
+627. update salary set sex=if(sex='m','f','m');
+
+1050. select a.actor_id,a.director_id from actordirector a left join actordirector b on a.actor_id=b.actor_id and a.director_id=b.director_id and a.timestamp=b.timestamp group by a.actor_id,a.director_id having count(a.timestamp)>=3
