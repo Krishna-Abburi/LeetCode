@@ -374,3 +374,7 @@ from triangle;
 1050. select a.actor_id,a.director_id from actordirector a left join actordirector b on a.actor_id=b.actor_id and a.director_id=b.director_id and a.timestamp=b.timestamp group by a.actor_id,a.director_id having count(a.timestamp)>=3
 
 1142. select ifnull(round(count(distinct session_id)/count(distinct user_id),2),0.00) as average_sessions_per_user from activity where activity_date between '2019-06-28' and '2019-07-27'
+
+1241.select distinct  b.sub_id as post_id, count(distinct a.sub_id) as number_of_comments from submissions a right join (select distinct sub_id from submissions where parent_id is null) b on a.parent_id=b.sub_id group by b.sub_id
+
+1280.select a.student_id,student_name,b.subject_name,count(c.subject_name) as attended_exams  from students as a cross join subjects as b left join examinations as c on a.student_id=c.student_id and b.subject_name=c.subject_name group by a.student_id,b.subject_name order by a.student_id
