@@ -372,3 +372,5 @@ from triangle;
 627. update salary set sex=if(sex='m','f','m');
 
 1050. select a.actor_id,a.director_id from actordirector a left join actordirector b on a.actor_id=b.actor_id and a.director_id=b.director_id and a.timestamp=b.timestamp group by a.actor_id,a.director_id having count(a.timestamp)>=3
+
+1142. select ifnull(round(count(distinct session_id)/count(distinct user_id),2),0.00) as average_sessions_per_user from activity where activity_date between '2019-06-28' and '2019-07-27'
