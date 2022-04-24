@@ -378,3 +378,36 @@ from triangle;
 1241.select distinct  b.sub_id as post_id, count(distinct a.sub_id) as number_of_comments from submissions a right join (select distinct sub_id from submissions where parent_id is null) b on a.parent_id=b.sub_id group by b.sub_id
 
 1280.select a.student_id,student_name,b.subject_name,count(c.subject_name) as attended_exams  from students as a cross join subjects as b left join examinations as c on a.student_id=c.student_id and b.subject_name=c.subject_name group by a.student_id,b.subject_name order by a.student_id
+
+1322. select ad_id,ifnull(round(a/(a+b)* 100,2),0.00) as ctr from (select a.ad_id,
+sum(case when action='Clicked' then 1 else 0 end) as a,
+sum(case when action='Viewed' then 1 else 0 end) as b 
+from ads a group by a.ad_id) m order by ctr desc,ad_id asc;
+
+
+
+1435.select bin as total from (select 
+case when duration/60<5 then '[0-5>' 
+    when duration/60>5 and duration/60<10 then '[5-10>'
+    ifnull(when duration/60>10 and duration/60<15,0) then '[10-15>'
+    when duration/60>15 then  '15 or more' end as bin
+    from sessions) as d;   /* issue with the case*/ need slight tweaking
+    
+ Individual case statement works....
+
+
+    select '[0-5>' as bin,
+sum(case when duration/60<5 then 1 else 0 end)  as total 
+from sessions
+union all
+select '[5-10>' as bin,
+sum(case when duration/60>5  and duration/60<10 then 1 else 0 end)   
+from sessions
+union all
+select '[10-15>' as bin,
+sum(case when duration/60>10 and duration/60<15 then 1 else 0 end)  as total 
+from sessions
+union all
+select '15 or more' as bin,
+sum(case when duration/60>15 then 1 else 0 end)  as total
+from sessions;
