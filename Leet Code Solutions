@@ -415,3 +415,9 @@ from sessions;
 
 2159.select first_col,second_col from (select first_col,row_number() over(order by first_col asc) as d from data order by first_col asc) a join 
 (select second_col,row_number() over(order by second_col desc) as f from data order by first_col asc) b on a.d=b.f order by second_col desc,first_col asc
+
+1495
+select distinct title from tvprogram a inner join content b on a.content_id=b.content_id where kids_content='Y' and extract(month from program_date)=6 and content_type='Movies'
+
+
+
