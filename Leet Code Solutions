@@ -419,5 +419,8 @@ from sessions;
 1495
 select distinct title from tvprogram a inner join content b on a.content_id=b.content_id where kids_content='Y' and extract(month from program_date)=6 and content_type='Movies'
 
-
+1527.
+SELECT *
+FROM patients
+WHERE conditions like '% DIAB1%' or conditions like 'DIAB1%'
 
