@@ -1,0 +1,1 @@
+select firstname,lastname,city,state  from person a left join address b on a.personid=b.personid;
