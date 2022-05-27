@@ -1,0 +1,1 @@
+select min(abs(a.x-b.x)) as shortest from point a,point b where  abs(a.x-b.x)!=0
