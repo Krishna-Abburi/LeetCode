@@ -1,0 +1,1 @@
+select name as warehouse_name,sum(width*length*height*units) as volume from warehouse a join products b on a.product_id=b.product_id group by name 
