@@ -1,0 +1,1 @@
+select distinct buyer_id from product a join sales b on a.product_id=b.product_id where product_name='S8'  and buyer_id not in (select buyer_id from product a join sales b on a.product_id=b.product_id where product_name='iPhone' )
