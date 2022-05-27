@@ -1,0 +1,1 @@
+select distinct title from tvprogram a join content b on a.content_id=b.content_id where extract(month from program_date)=6 and kids_content='Y' and content_type='Movies'
