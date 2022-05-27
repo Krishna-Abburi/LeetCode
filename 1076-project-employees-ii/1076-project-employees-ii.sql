@@ -1,0 +1,1 @@
+select project_id from (select project_id,count(a.employee_id),dense_rank() over(order by count(a.employee_id) desc) as rnk from project a join employee b on a.employee_id=b.employee_id group by project_id) m where rnk=1
