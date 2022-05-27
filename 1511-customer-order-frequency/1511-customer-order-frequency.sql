@@ -1,0 +1,1 @@
+select customer_id,name from (select a.customer_id,name,sum(quantity* price) from customers a right join orders b on a.customer_id=b.customer_id join product c on b.product_id=c.product_id where extract(month from order_date) in (6,7) group by a.customer_id,extract(month from order_date) having sum(quantity* price)>=100) m  group by customer_id having count(customer_id)>1
