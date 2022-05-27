@@ -1,0 +1,2 @@
+# Write your MySQL query statement below
+select distinct a.product_id,product_name from product a join sales b on a.product_id=b.product_id where sale_date between '2019-01-01' and '2019-03-31' and a.product_id not in (select product_id from sales where sale_date>'2019-03-31' or sale_date<'2019-01-01') order by a.product_id ;
